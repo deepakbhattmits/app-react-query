@@ -29,10 +29,22 @@ const Exchange = () => {
 	if (status === 'error') return <div>Error: {JSON.stringify(error)}</div>;
 	return (
 		<div>
-			<button onClick={() => setCurrency('USD')}>USD</button>
-			<button onClick={() => setCurrency('CAD')}>CAD</button>
-			<button onClick={() => setCurrency('EUR')}>EUR</button>
-			<h1>Showing currency {currency}</h1>
+			<button className='ui olive button' onClick={() => setCurrency('USD')}>
+				USD
+			</button>
+			<button className='ui green button' onClick={() => setCurrency('CAD')}>
+				CAD
+			</button>
+			<button className='ui pink button' onClick={() => setCurrency('EUR')}>
+				EUR
+			</button>
+			<h1>
+				Showing currency :{currency}
+				<i
+					className={`${currency
+						.substring(0, currency.length - 1)
+						.toLowerCase()} flag`}></i>
+			</h1>
 			<pre>{JSON.stringify(data, null, 2)}</pre>;
 		</div>
 	);
