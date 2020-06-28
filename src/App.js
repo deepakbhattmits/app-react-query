@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import { useQuery } from 'react-query';
+import Button from './Button';
 // import logo from './logo.svg';
 import './App.css';
 const fetchExchange = async (currency) => {
@@ -28,25 +29,38 @@ const Exchange = () => {
 		);
 	if (status === 'error') return <div>Error: {JSON.stringify(error)}</div>;
 	return (
-		<div>
-			<button className='ui olive button' onClick={() => setCurrency('USD')}>
-				USD
-			</button>
-			<button className='ui green button' onClick={() => setCurrency('CAD')}>
-				CAD
-			</button>
-			<button className='ui pink button' onClick={() => setCurrency('EUR')}>
-				EUR
-			</button>
-			<h1>
-				Showing currency :{currency}
-				<i
-					className={`${currency
-						.substring(0, currency.length - 1)
-						.toLowerCase()} flag`}></i>
-			</h1>
-			<pre>{JSON.stringify(data, null, 2)}</pre>;
-		</div>
+		<>
+			<div className='ui inverted segment'>
+				{['USD', 'CAD', 'EUR'].map((item, index) => {
+					return (
+						<Button
+							key={index}
+							className={`ui inverted ${
+								item === 'USD'
+									? 'olive'
+									: item === 'CAD'
+									? 'pink'
+									: item === 'EUR'
+									? 'green'
+									: ''
+							} button`}
+							handleClick={() => setCurrency(item)}>
+							{item}
+						</Button>
+					);
+				})}
+			</div>
+			<div className='main-wrapper'>
+				<div className='currency-container'>
+					<h1 className='ui header'>Showing currency :{currency}</h1>
+					<i
+						className={`${currency
+							.substring(0, currency.length - 1)
+							.toLowerCase()} flag`}></i>
+				</div>
+				<pre className='pre'>{JSON.stringify(data, null, 2)}</pre>
+			</div>
+		</>
 	);
 };
 const App = () => {
