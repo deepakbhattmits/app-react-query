@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import { useQuery } from 'react-query';
 import Button from './Button';
-// import logo from './logo.svg';
 import './App.css';
 const fetchExchange = async (currency) => {
 	const response = await fetch(
@@ -65,21 +64,6 @@ const Exchange = () => {
 };
 const App = () => {
 	return (
-		// <div className='App'>
-		// 	<header className='App-header'>
-		// 		<img src={logo} className='App-logo' alt='logo' />
-		// 		<p>
-		// 			Edit <code>src/App.js</code> and save to reload.
-		// 		</p>
-		// 		<a
-		// 			className='App-link'
-		// 			href='https://reactjs.org'
-		// 			target='_blank'
-		// 			rel='noopener noreferrer'>
-		// 			Learn React
-		// 		</a>
-		// 	</header>
-		// </div>
 		<div className='App'>
 			<Exchange />
 			<ReactQueryDevtools initialIsOpen={false} />
