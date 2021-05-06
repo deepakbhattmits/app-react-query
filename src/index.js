@@ -2,14 +2,19 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+// import { QueryClient, QueryClientProvider } from 'react-query';
+import './styles/index.css';
+import App from './components/App';
+// import Pokemon from './components/Pokemon';
 // import * as serviceWorker from './serviceWorker';
-
+// const queryClient = new QueryClient();
 const rootElement = document.querySelector('#root');
 ReactDOM.render(
 	<React.StrictMode>
+		{/* <QueryClientProvider client={queryClient}> */}
 		<App />
+		{/* <Pokemon /> */}
+		{/* </QueryClientProvider> */}
 	</React.StrictMode>,
 	rootElement
 );
