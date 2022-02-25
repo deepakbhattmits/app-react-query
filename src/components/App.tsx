@@ -1,7 +1,7 @@
 /** @format */
 import { FC, useState } from "react";
 import axios from "axios";
-import { useQuery, queryCache } from "react-query";
+import { useQuery, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query-devtools";
 import "../styles/App.css";
 const fetchPosts = async () => {
@@ -11,6 +11,7 @@ const fetchPosts = async () => {
     .then((res) => res.data.slice(0, 10));
 };
 const Posts = ({ setPostId }) => {
+  const queryClient = new QueryClient();
   const postsQuery = useQuery("posts", fetchPosts);
   return (
     <>
@@ -25,7 +26,7 @@ const Posts = ({ setPostId }) => {
               key={id}
               onMouseEnter={() => {
                 console.log("hovered", id);
-                queryCache?.prefetchQuery(["post", id], () => fetchPost(id), {
+                queryClient?.prefetchQuery(["post", id], () => fetchPost(id), {
                   staleTime: Infinity,
                 });
               }}
