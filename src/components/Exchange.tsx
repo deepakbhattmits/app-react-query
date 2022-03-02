@@ -1,9 +1,9 @@
 /** @format */
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Button from './reusable/Button';
 import { useExchange } from '../hooks/useExchange';
 
-const Exchange = () => {
+const Exchange:FC = ():JSX.Element => {
 	const [currency, setCurrency] = useState('CAD');
 	const { isLoading, isError, data, error } = useExchange(currency);
 	if (isLoading)
