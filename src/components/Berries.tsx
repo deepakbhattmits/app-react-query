@@ -1,12 +1,16 @@
 /** @format */
+import { FC } from "react";
 import { useBerry } from "../hooks/useBerry";
-const Berries = () => {
+interface IProp {
+  [props: string]: any;
+}
+const Berries: FC<IProp> = (): JSX.Element => {
   const { queryInfo } = useBerry();
   return queryInfo.isLoading ? (
-    "Loading..."
+    <>Loading...</>
   ) : queryInfo.isError ? (
     // queryInfo?.error.message
-    queryInfo?.error
+    <>{queryInfo?.error}</>
   ) : (
     <>
       <h3>You are looking {queryInfo.data?.results.length} Berries</h3>
