@@ -10,7 +10,10 @@ const fetchPosts = async () => {
     .get("https://jsonplaceholder.typicode.com/posts")
     .then((res) => res.data.slice(0, 10));
 };
-const Posts = ({ setPostId }) => {
+interface IProp {
+  [props: string]: any;
+}
+const Posts: FC<IProp> = ({ setPostId }): JSX.Element => {
   const queryClient = new QueryClient();
   const postsQuery = useQuery("posts", fetchPosts);
   return (
