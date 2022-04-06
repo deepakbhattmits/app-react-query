@@ -39,13 +39,7 @@ const Posts: FC<IProp> = ({ setPostId }): JSX.Element => {
                 src={require(`${picture}`)}
                 alt={title}
               /> */}
-              <a
-                onClick={() => setPostId(id)}
-                href="#"
-                rel="noreferrer noopener"
-              >
-                {title}
-              </a>
+              <span onClick={() => setPostId(id)}>{title}</span>
             </li>
           ))}
         </ul>
