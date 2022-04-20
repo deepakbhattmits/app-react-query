@@ -2,7 +2,6 @@
 import { FC, useState } from "react";
 import axios from "axios";
 import { useQuery, QueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query-devtools";
 import "../styles/App.css";
 const fetchPosts = async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // lag of 1 sec.
@@ -82,8 +81,6 @@ const App: FC = (): JSX.Element => {
       ) : (
         <Posts setPostId={setPostId} />
       )}
-
-      <ReactQueryDevtools initialIsOpen />
     </div>
   );
 };
