@@ -9,9 +9,10 @@ const SearchPokemon: FC<IProp> = ({ pokemon }): JSX.Element => {
   return queryInfo.isLoading ? (
     <>Loading...</>
   ) : queryInfo.isError ? (
-    // <h3>Error: {queryInfo.error.message}</h3>
-    <h3>Error: {queryInfo.error}</h3>
-  ) : (
+    <>
+      <h3>Error: {queryInfo.error as string}</h3>
+    </>
+  ) : queryInfo.isSuccess ? (
     <>
       {queryInfo.data?.sprites?.front_default ? (
         <img
@@ -39,6 +40,6 @@ const SearchPokemon: FC<IProp> = ({ pokemon }): JSX.Element => {
       <br />
       {queryInfo.isFetching ? "Updated..." : ""}
     </>
-  );
+  ) : null;
 };
 export default SearchPokemon;
