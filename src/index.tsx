@@ -1,5 +1,5 @@
 /** @format */
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
@@ -8,19 +8,24 @@ import App from "./components/App";
 import Pokemon from "./components/Pokemon";
 // import * as serviceWorker from './serviceWorker';
 import "./styles/index.css";
+// import { ReactNode } from "react";
+
+// declare module "react-query/types/react/QueryClientProvider" {
+//   interface QueryClientProviderProps {
+//     children?: ReactNode;
+//   }
+// }
 const queryClient = new QueryClient();
 const rootElement = document.querySelector("#root");
 const root = createRoot(rootElement);
 root.render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Hydrate>
-        <App />
-        <Pokemon />
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-      </Hydrate>
-    </QueryClientProvider>
-  </StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <Hydrate>
+      <App />
+      <Pokemon />
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+    </Hydrate>
+  </QueryClientProvider>
 );
 
 // If you want your app to work offline and load faster, you can change
