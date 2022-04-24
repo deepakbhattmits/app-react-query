@@ -12,9 +12,13 @@ const Pokemon: FC = (): JSX.Element => {
     ) : queryInfo?.isSuccess ? (
       <>
         <h3>You are looking {queryInfo.data?.results.length} Pokemon</h3>
-        <ul>
+        <ul className="list__wrapper">
           {queryInfo.data.results.map(({ name }) => {
-            return <li key={name}>{name}</li>;
+            return (
+              <li className="list__wrapper--item" key={name}>
+                {name}
+              </li>
+            );
           })}
         </ul>
 
