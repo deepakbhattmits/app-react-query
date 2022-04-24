@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import App from "./components/App";
 import Pokemon from "./components/Pokemon";
 // import * as serviceWorker from './serviceWorker';
-import "./styles/index.css";
+import "./styles/_index.scss";
 // import { ReactNode } from "react";
 
 // declare module "react-query/types/react/QueryClientProvider" {
@@ -21,9 +21,11 @@ const root = createRoot(rootElement);
 root.render(
   <QueryClientProvider client={queryClient}>
     <Hydrate>
-      <App />
-      <Pokemon />
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      <main>
+        <App />
+        <Pokemon />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      </main>
     </Hydrate>
   </QueryClientProvider>
 );
