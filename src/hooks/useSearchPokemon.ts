@@ -1,5 +1,5 @@
 /** @format */
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 // import axios, { CancelToken } from 'axios';
 
 export const useSearchPokemon = (pokemon) => {
