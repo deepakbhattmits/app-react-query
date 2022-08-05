@@ -1,13 +1,18 @@
 /** @format */
+import { FC } from "react";
 import { useSearchPokemon } from "../hooks/useSearchPokemon";
-const SearchPokemon = ({ pokemon }) => {
+interface IProp {
+  [props: string]: any;
+}
+const SearchPokemon: FC<IProp> = ({ pokemon }): JSX.Element => {
   const { queryInfo } = useSearchPokemon(pokemon);
   return queryInfo.isLoading ? (
-    "Loading..."
+    <>Loading...</>
   ) : queryInfo.isError ? (
-    // <h3>Error: {queryInfo.error.message}</h3>
-    <h3>Error: {queryInfo.error}</h3>
-  ) : (
+    <>
+      <h3>Error: {queryInfo.error as string}</h3>
+    </>
+  ) : queryInfo.isSuccess ? (
     <>
       {queryInfo.data?.sprites?.front_default ? (
         <img
@@ -35,6 +40,6 @@ const SearchPokemon = ({ pokemon }) => {
       <br />
       {queryInfo.isFetching ? "Updated..." : ""}
     </>
-  );
+  ) : null;
 };
 export default SearchPokemon;
