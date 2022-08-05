@@ -1,7 +1,7 @@
 /** @format */
 import { FC, useState } from "react";
 import axios from "axios";
-import { useQuery, QueryClient } from "react-query";
+import { useQuery, QueryClient } from "@tanstack/react-query";
 const fetchPosts = async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // lag of 1 sec.
   const { data } = await axios.get(
@@ -14,7 +14,7 @@ interface IProp {
 }
 const Posts: FC<IProp> = ({ setPostId }): JSX.Element => {
   const queryClient = new QueryClient();
-  const postsQuery = useQuery("posts", fetchPosts);
+  const postsQuery = useQuery(["posts"], fetchPosts);
   return (
     <>
       <h1>Posts {postsQuery.isFetching ? "...." : null}</h1>
