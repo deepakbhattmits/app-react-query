@@ -13,10 +13,17 @@ const Pokemon: FC = (): JSX.Element => {
       <>
         <h3>You are looking {queryInfo.data?.results.length} Pokemon</h3>
         <ul className="list__wrapper">
-          {queryInfo.data.results.map(({ name }) => {
+          {queryInfo.data.results.map(({ name, url }) => {
             return (
               <li className="list__wrapper--item" key={name}>
-                {name}
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                    url?.match(/[^pokemon\\/]+?(?=\/)/gi)[3]
+                  }.png`}
+                  alt={name}
+                  className="list__wrapper--item-image"
+                />
+                <span className="list__wrapper--item-name">{name}</span>
               </li>
             );
           })}
