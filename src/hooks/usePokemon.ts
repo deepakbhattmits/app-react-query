@@ -1,5 +1,5 @@
 /** @format */
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const usePokemon = () => {
   const fetchPokemon = async () => {
@@ -11,7 +11,7 @@ export const usePokemon = () => {
     const data = await response.json();
     return data;
   };
-  const queryInfo = useQuery("pokemon", fetchPokemon);
+  const queryInfo = useQuery(["pokemon"], fetchPokemon);
   return {
     queryInfo,
   };
