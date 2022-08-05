@@ -1,18 +1,20 @@
 /** @format */
 import { FC, useState } from "react";
 import axios from "axios";
-import { useQuery, QueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query-devtools";
-import "../styles/App.css";
+import { useQuery, QueryClient } from "@tanstack/react-query";
 const fetchPosts = async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // lag of 1 sec.
-  return await axios
-    .get("https://jsonplaceholder.typicode.com/posts")
-    .then((res) => res.data.slice(0, 10));
+  const { data } = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return data?.slice(0, 10);
 };
-const Posts = ({ setPostId }) => {
+interface IProp {
+  [props: string]: any;
+}
+const Posts: FC<IProp> = ({ setPostId }): JSX.Element => {
   const queryClient = new QueryClient();
-  const postsQuery = useQuery("posts", fetchPosts);
+  const postsQuery = useQuery(["posts"], fetchPosts);
   return (
     <>
       <h1>Posts {postsQuery.isFetching ? "...." : null}</h1>
@@ -20,9 +22,10 @@ const Posts = ({ setPostId }) => {
       {postsQuery.isLoading ? (
         "Loading..."
       ) : (
-        <ul>
+        <ul className="list__wrapper">
           {postsQuery.data?.map(({ id, title }) => (
             <li
+              className="list__wrapper--item"
               key={id}
               onMouseEnter={() => {
                 console.log("hovered", id);
@@ -30,19 +33,15 @@ const Posts = ({ setPostId }) => {
                   staleTime: Infinity,
                 });
               }}
+              onClick={() => setPostId(id)}
+              onKeyPress={() => setPostId(id)}
             >
               {/* <img
                 className="content___wrapper--img"
                 src={require(`${picture}`)}
                 alt={title}
               /> */}
-              <a
-                onClick={() => setPostId(id)}
-                href="#"
-                rel="noreferrer noopener"
-              >
-                {title}
-              </a>
+              <span>{title}</span>
             </li>
           ))}
         </ul>
@@ -52,32 +51,30 @@ const Posts = ({ setPostId }) => {
 };
 const fetchPost = async (postId) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  return axios
-    .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-    .then((res) => res.data);
+  const { data } = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`
+  );
+  return data;
 };
 const Post = ({ postId, setPostId }) => {
   const postQuery = useQuery(["post", postId], () => fetchPost(postId), {
     staleTime: 60 * 1000,
   });
   return (
-    <>
-      <button onClick={() => setPostId(-1)}>Back</button>
-      <br />
-      <span>
-        {postQuery.isLoading ? (
-          "Loading..."
-        ) : (
-          <span>{postQuery.data.title}</span>
-        )}
+    <div className="post__wrapper">
+      <button className="post__wrapper--btn btn" onClick={() => setPostId(-1)}>
+        Back
+      </button>
+      <strong className="post__wrapper--header">Description</strong>
+      <span className="post__wrapper--body">
+        {postQuery.isLoading ? "Loading..." : <>{postQuery.data.body}</>}
       </span>
-      <br />
       {postQuery.isFetching ? "Updating..." : null}
-    </>
+    </div>
   );
 };
 const App: FC = (): JSX.Element => {
-  const [postId, setPostId] = useState(-1);
+  const [postId, setPostId] = useState<number>(-1);
   return (
     <div className="App">
       {postId > -1 ? (
@@ -85,8 +82,6 @@ const App: FC = (): JSX.Element => {
       ) : (
         <Posts setPostId={setPostId} />
       )}
-
-      <ReactQueryDevtools initialIsOpen />
     </div>
   );
 };
