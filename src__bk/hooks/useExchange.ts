@@ -1,7 +1,7 @@
 /** @format */
 
 /** @format */
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 export const useExchange = (currency) => {
 	const fetchExchange = async ({ queryKey }) => {
 		const response = await fetch(
